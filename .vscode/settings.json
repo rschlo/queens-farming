@@ -1,0 +1,7 @@
+{
+    "java.checkstyle.configuration": "${workspaceFolder}\\checkstyle-optional.xml",
+    "java.checkstyle.version": "10.8.1",
+    "java.project.sourcePaths": [
+        "src"
+    ]
+}
