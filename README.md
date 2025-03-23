@@ -1,21 +1,48 @@
 # Queens Farming
-## Final task 1 of the programming module at the Karlsruhe Institute of Technology (KIT)
 
-This is a multiplayer console game. The objective of each player is to grow vegetables on their field to multiply and eventually sell them. When a player has earned a predetermined amount of gold, they win. 
+**Queens Farming** is a turn-based farming simulation game in which players plant, harvest, and sell vegetables to earn gold, expand their farmland, and ultimately accumulate enough gold to win. This project was developed as part of the final assignment for the **Programming** module at the **Karlsruhe Institute of Technology** during the winter term of 2022/23. For more information, see [task.pdf](./task.pdf). 
 
-For more information, see [task.pdf](./task.pdf)
 
-There are carrots, salads, tomatoes und mushrooms.  
 
-| command                                              | description                                                  |
-| ---------------------------------------------------- | ------------------------------------------------------------ |
-| plant [x-coordinate] [y-coordinate] [vegetable name] | If a child has the right vegetable in the barn, it can be planted on an empty tile, with the tile type determining which vegetables can grow, and a countdown begins based on the vegetable's growth time. |
-| harvest [x-coordinate] [y-coordinate] [amount]       | A player harvests vegetables from a tile and stores them in a barn; the tile's countdown is adjusted or removed based on remaining vegetables. |
-| sell [list of vegetable names]                       | A player can sell vegetables from their barn, receiving immediate payment, with the market changing after their turn, not instantly after the sale. |
-| buy vegetable [vegetable name]                       | With gold, a player can buy a vegetable, which is then stored directly in the barn. |
-| buy land [x-coordinate] [y-coordinate]               | A child can also buy additional tiles with gold to expand their play area, with the type of tile being random. |
-| show barn                                            |                                                              |
-| show board                                           |                                                              |
-| show market                                          |                                                              |
-|                                                      |                                                              |
+## Game Play
 
+### Overview of game elements
+Players cultivate four distinct vegetables, each requiring a set number of rounds to mature. These crops are grown on specific types of farm tiles, each with varying capacities and crop compatibility constraints. 
+
+| Vegetable    | Growth Duration |
+| ------------ | --------------- |
+| Carrot (C)   | 1 round         |
+| Salad (S)    | 2 rounds        |
+| Tomato (T)   | 3 rounds        |
+| Mushroom (M) | 4 rounds        |
+
+
+| Tile Type          | Capacity | Allowed Vegetables    |
+| ------------------ | -------- | --------------------- |
+| Barn (B)           | infinity | Storage Only          |
+| Garden (G)         | 2        | All                   |
+| Field (Fi)         | 4        | Carrot, Salad, Tomato |
+| Large Field (LFi)  | 8        | Carrot, Salad, Tomato |
+| Forest (Fo)        | 4        | Carrot, Mushroom      |
+| Large Forest (LFo) | 8        | Carrot, Mushroom      |
+
+### Game Flow
+
+At the start, one selects the number of participants, player names, initial gold, winning gold threshold, and a seed value for randomization. Each player begins with one vegetable of each type stored in their barn.
+
+Players take turns sequentially and may issue the following commands:  
+
+| Command                          | Description                                 |
+| -------------------------------- | ------------------------------------------- |
+| `show barn`                      | Display barn contents and gold balance.     |
+| `show board`                     | Display current farm layout and statuses.   |
+| `show market`                    | Display current vegetable market prices.    |
+| `sell [vegetables]/all`          | Sell specific or all stored vegetables.     |
+| `buy vegetable [vegetable_name]` | Purchase a single vegetable unit.           |
+| `buy land [x] [y]`               | Purchase a new tile at coordinates `(x,y)`. |
+| `harvest [x] [y] [amount]`       | Harvest vegetables from a tile.             |
+| `plant [x] [y] [vegetable_name]` | Plant a vegetable from barn onto a tile.    |
+| `end turn`                       | End the current player's turn.              |
+| `quit`                           | Exit the game immediately.                  |
+
+The game ends automatically once a player reaches or surpasses the target gold amount after completing a full round, or manually at any time using the `quit` command. The player who first reaches the gold threshold, or the player with the most gold at game-end, is declared the winner.
